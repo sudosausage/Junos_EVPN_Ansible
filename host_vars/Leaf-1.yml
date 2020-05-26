@@ -17,6 +17,7 @@ interfaces:
 
 #BGP Sections
 asn: 64520
+router_id: 10.255.254.10
 bgp_networks:
   - "100.127.10.1/32"
 bgp_neighbor:

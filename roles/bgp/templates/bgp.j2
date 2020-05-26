@@ -30,7 +30,7 @@ protocols {
             }
         }
 {%   elif bgp.group is defined and 'Overlay' in bgp.group   %}
-        group Overlay_EBGP {
+        group Overlay_eBGP {
             type external;
             multihop {
                 ttl 2;
@@ -52,4 +52,33 @@ protocols {
 {% endfor %}
         }
     }
+}
+policy-options {
+    policy-statement LB {
+        then {
+            load-balance per-packet;
+        }
+    }
+    policy-statement bgp-underlay-out {
+        term loopback {
+            from {
+                protocol direct;
+                route-filter 10.255.254.0/24 prefix-length-range /32-/32;
+            }
+            then {
+                community add Underlay;
+                accept;
+            }
+        }
+        term as-path {
+            from {
+                as-path asPathLength2;
+                community Underlay;
+            }
+            then reject;
+        }
+        then reject;
+    }
+    community Underlay members target:999:1;
+    as-path asPathLength2 ".{2,}";
 }
