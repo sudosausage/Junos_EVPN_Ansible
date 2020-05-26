@@ -1,6 +1,6 @@
 ---
 - name: Templating Structure with Ansible Roles.
-  hosts: local
-  gather_facts: false
+  hosts: juniper_leafs
+  connection: local
   roles:
     - vxlan
