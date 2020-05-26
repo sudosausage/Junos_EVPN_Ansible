@@ -28,8 +28,8 @@ protocols {
             neighbor {{ bgp.remote_address }} {
                 peer-as {{ bgp.remote_asn }};
             }
-{%   endif   %}
         }
+{%   endif   %}
 {%   if bgp.group is defined and 'Overlay' in bgp.group   %}
         group Overlay_EBGP {
             type external;
