@@ -9,7 +9,7 @@ interfaces {
             family inet {
                 address {{ interface.ipv4}}/{{ interface.ipv4_mask}};
             }
+        {% endfor %}
         }
-    {% endfor %}
     }
 }
