@@ -3,7 +3,7 @@
   file:
     path: "./config_files/interfaces_rendered_config"
     state: directory
-   run_once: true
+  run_once: true
 
 - name: Templating VXLAN Config
   template:
