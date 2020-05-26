@@ -10,7 +10,7 @@ interfaces:
     description: "Link to Spine-1"
     type: "routed"
   - interface: lo0
-    ipv4: "10.0.0.1"
+    ipv4: "110.255.254.10"
     ipv4_mask: 32
     description: "Management IP"
     type: "loopback"
