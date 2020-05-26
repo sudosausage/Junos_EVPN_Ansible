@@ -1,0 +1,59 @@
+---
+name: "Leaf-1"
+role: "Leaf"
+
+#Interface Section
+interfaces:
+  - interface: xe-0/0/0
+    ipv4: "10.0.0.1"
+    ipv4_mask: 31
+    description: "Link to Spine-1"
+    type: "routed"
+  - interface: lo0
+    ipv4: "10.0.0.1"
+    ipv4_mask: 31
+    description: "Management IP"
+    type: "loopback"
+
+#BGP Section
+asn: 64520
+bgp_networks:
+  - "100.127.10.1/32"
+bgp_neighbor:
+  - remote_address: "10.0.0.0"
+    local_address: "10.0.0.1"
+    remote_asn: "64512"
+    description: "eBGP_Underlay to Spine-1"
+    group: "Underlay"
+    bfd: "true"
+  - remote_address: "10.255.254.0"
+    local_address: "10.255.254.10"
+    remote_asn: "64512"
+    description: "eBGP_Underlay to Spine-1"
+    group: "Underlay"
+    bfd: "true"
+
+#VXLAN Section
+vxlan_role: "Leaf"
+transport: "evpn"
+vni:
+  1001:
+    vnid: "1001"
+    rd: "2012:1001"
+    vrf: "Cust-A"
+    vlan: 10
+    ipv4_gw: "10.10.10.1"
+    ipv4_mask: 24
+    agw_mac: "0200.0000.1001"
+    intf:
+      ethernet1/10:
+        type: "access"
+      ethernet:1/11:
+        type: "trunk"
+
+l3_vni:
+  3001:
+    vnid: "3001"
+    vlan: 3001
+    vrf: "Cust-A"
+    rd: "2012:3001"

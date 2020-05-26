@@ -1,0 +1,15 @@
+{% set device = hostvars[inventory_hostname] %}
+
+{% for vni, vxlan in device.vxlan.items() %}
+set vlans {{ vxlan.vlan_name }} vlan-id {{ vxlan.vlan_id }}
+set vlans {{ vxlan.vlan_name }} description "{{ vxlan.vlan_description }}"
+set vlans {{ vxlan.vlan_name }} vxlan vni {{ vxlan.vlan_vni }}
+set vlans {{ vxlan.vlan_name }} vxlan ingress-node-replication
+
+set protocols evpn vni-options vni 9666 vrf-target export target:1:9666
+set protocols evpn extended-vni-list 9666
+set policy-options policy-statement LEAF-IN term import_vni9666 from community com9666
+set policy-options policy-statement LEAF-IN term import_vni9666 then accept
+insert policy-options policy-statement LEAF-IN term import_vni9666 before term default
+set policy-options community com9666 members target:1:9666
+{% endfor %}

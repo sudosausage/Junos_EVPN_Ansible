@@ -1,0 +1,17 @@
+---
+ - name: Get Facts
+   hosts: juniper_leafs
+   connection: network_cli
+   gather_facts: no
+
+   tasks:
+    - name: Enable Netconf
+      junos_netconf:
+        config_mode: "private"
+        netconf_port: 830
+        state: present
+      register: response
+
+    - name: Print Diff
+      debug:
+        var: response.diff_lines

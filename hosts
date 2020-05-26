@@ -1,0 +1,78 @@
+[juniper_all:children]
+juniper_spines
+juniper_leafs
+juniper_met_leaf
+juniper_ldh_prd
+juniper_ldh_crp
+
+[juniper_spines]
+QFX10K_Spine_01_DH6D-2-13 ansible_host=10.26.0.101
+QFX10K_Spine_02_DH6D-1-11 ansible_host=10.26.0.102
+
+[juniper_leafs]
+Leaf_01_DH6D-1-12 ansible_host=10.26.0.103
+Leaf_02_DH6D-2-12 aansible_host=10.26.0.104
+Leaf_03_DH6D_1-9 ansible_host=10.26.0.105
+Leaf_05_DH6D-1-1a ansible_host=10.26.0.107
+Leaf_06_DH6D-1-5 ansible_host=10.26.0.108
+Leaf_07_DH6D-1-7 ansible_host=10.26.0.109
+Leaf_08_DH6D-2-1 ansible_host=10.26.0.110
+Leaf_09_DH6D-1-9 ansible_host=10.26.0.111
+Leaf_10_DH6D-1-4 ansible_host=10.26.0.112
+Leaf_11_DH6D-1-5 ansible_host=10.26.0.113
+Leaf_12_DH6D-1-6 ansible_host=10.26.0.114
+Leaf_13_DH6D-1-8 ansible_host=10.26.0.115
+Leaf_14_DH6D-1-2 ansible_host=10.26.0.116
+Leaf_15_DH6D-POPA-1-13 ansible_host=10.26.0.121
+Leaf_16_DH6D-POPB-2-11 ansible_host=10.26.0.122
+Leaf_17_DH6D-1-20 ansible_host=10.26.0.123
+Leaf_18_DH6D-1-10 ansible_host=10.26.0.126
+Leaf_20_DH6D-2-20 ansible_host=10.26.0.128
+Leaf_21_DH6D-DTDC ansible_host=10.26.0.129
+Leaf_22_DH6D-DTDC ansible_host=10.26.0.130
+
+[juniper_test]
+Leaf_04_DH6D-1-4a ansible_host=10.26.0.106
+
+[juniper_test:vars]
+ansible_network_os=junos
+ansible_user=admin
+ansible_password=zaq1234%
+
+[juniper_met_leaf]
+LDH-FAB-LEF01-POPA ansible_host=10.26.0.117
+LDH-FAB-LEF02-POPB ansible_host=10.26.0.119
+LWR-FAB-MET01-DC ansible_host=10.26.0.118
+LTE-FAB-MET03-E142AA ansible_host=10.26.0.124
+LTE-FAB-MET04-E142AA ansible_host=10.26.0.125
+LDE-FAB-MET02-1S ansible_host=10.26.0.120
+
+[juniper_ldh_prd]
+LDH-PRD-ACC06-GND ansible_host=10.26.3.125
+LDH-PRD-ACC07-MEZ ansible_host=10.26.3.122
+LDH-PRD-ACC04-1ST ansible_host=10.26.3.111
+LDH-PRD-ACC02-WHS ansible_host=10.26.3.109
+LDH-PRD-ACC05-AUD ansible_host=10.26.3.119
+LDH-PRD-ACC03-2ND ansible_host=10.26.3.101
+LDH-PRD-ACC01-WHS ansible_host=10.26.3.110
+
+[juniper_ldh_crp]
+LDH-CRP-ACC04-WHS ansible_host=172.26.33.18
+LDH-CRP-ACC05-MEZ ansible_host=172.26.33.17
+LDH-CRP-ACC01-GND ansible_host=172.26.33.14
+LDH-CRP-COR01-GND ansible_host=172.26.33.13
+LDH-CRP-ACC03-2ND ansible_host=172.26.33.16
+LDH-CRP-ACC02-1ST ansible_host=172.26.33.15
+LDH-CRP-ACC06-ADO ansible_host=172.26.33.20
+
+LVT-PRD-FRW01 ansible_host=10.26.0.20
+LON05-EXT-QFX ansible_host=10.26.3.121
+LVT_PRD_DLC01_DH6D-1-10 ansible_host=10.26.3.124
+PAR-QFX-DGN01 ansible_host=10.26.0.91
+FW01.DELUXE.SPAIN ansible_host=172.18.238.2
+PCoIP-DC ansible_host=10.26.54.203
+PAR-4550-01 ansible_host=10.4.3.254
+PAR-SRX-01 ansible_host=10.4.3.251
+PAR-4300-1 ansible_host=172.21.0.211
+PAR-4200-01 ansible_host=172.21.0.219
+MAD-QFX-DGN01 ansible_host=10.26.0.90

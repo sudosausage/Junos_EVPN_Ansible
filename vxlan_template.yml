@@ -1,0 +1,6 @@
+---
+- name: Templating Structure with Ansible Roles.
+  hosts: local
+  gather_facts: false
+  roles:
+    - vxlan

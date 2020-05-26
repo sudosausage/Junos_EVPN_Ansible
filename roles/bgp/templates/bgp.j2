@@ -1,0 +1,56 @@
+{% set device = hostvars[inventory_hostname] %}
+#jinja2: lstrip_blocks: “True”
+
+routing-options {
+    router-id 10.0.1.1;
+    autonomous-system 65001;
+    forwarding-table {
+        export LB;
+        ecmp-fast-reroute;
+    }
+}
+{% for bgp in device.bgp_neighbor %}
+protocols {
+    bgp {
+{%   if bgp.group is defined and 'Underlay' in bgp.group   %}
+        group Underlay_eBGP {
+            type external;
+            mtu-discovery;
+            local-address {{ bgp.local_address }};
+            export bgp-underlay-out;
+            local-as {{ device.asn }};
+            bfd-liveness-detection {
+                minimum-interval 300;
+                multiplier 3;
+                session-mode automatic;
+            }
+            multipath multiple-as;
+            neighbor {{ bgp.remote_address }} {
+                peer-as {{ bgp.remote_asn }};
+            }
+        }
+{%   endif   %}
+{%   if bgp.group is defined and 'Overlay' in bgp.group   %}
+        group Overlay_EBGP {
+            type external;
+            multihop {
+                ttl 2;
+            }
+            local-address {{ bgp.local_address }};
+            family evpn {
+                signaling;
+            }
+            bfd-liveness-detection {
+                minimum-interval 300;
+                multiplier 3;
+                session-mode automatic;
+            }
+            multipath multiple-as;
+            neighbor {{ bgp.remote_address }} {
+                peer-as {{ bgp.remote_asn }};
+{%   endif   %}
+            }
+        }
+    }
+}
+{% endfor %}

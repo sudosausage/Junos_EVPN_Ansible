@@ -1,0 +1,35 @@
+{% set device = hostvars[inventory_hostname] %}
+#jinja2: lstrip_blocks: “True”
+
+{% for vni, vxlan in device.vxlan.items() %}
+policy-options {
+    policy-statement LEAF-IN {
+        term import_vni{{ vxlan.vni }} {
+            from community {{ vxlan.community_name }};
+            then accept;
+        }
+        insert import_vni9228 before default
+   }
+   community {{ vxlan.community_name }} members target:1:{{ vxlan.vni }};
+}
+protocols {
+   evpn {
+       vni-options {
+           vni {{ vxlan.vni }} {
+               vrf-target export target:1:{{ vxlan.vni }};
+           }
+      }
+      extended-vni-list {{ vxlan.vni }}
+   }
+}
+vlans {
+    {{ vxlan.vlan_name }} {
+        description "{{ vxlan.vlan_description }}";
+        vlan-id {{ vxlan.vlan_id }};
+        vxlan {
+            vni {{ vxlan.vni }};
+            ingress-node-replication;
+        }
+    }
+}
+{% endfor %}
