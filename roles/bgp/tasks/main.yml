@@ -1,8 +1,8 @@
 ---
 - name: Templating VXLAN Config
   template:
-    src: vxlan.j2
-    dest: "./config_files/vxlan_rendered_config/{{ inventory_hostname }}.conf"
+    src: bgp.j2
+    dest: "./config_files/bgp_rendered_config/{{ inventory_hostname }}.conf"
 
 #- name: Pushing VXLAN Config
 #  juniper_junos_config:

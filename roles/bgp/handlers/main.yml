@@ -1,5 +1,5 @@
 ---
-- name: Display Relevant changes
-  listen: config_changed
-  debug:
-    msg: {{ junos }}
+#- name: Display Relevant changes
+#  listen: config_changed
+#  debug:
+#    msg: {{ junos }}
