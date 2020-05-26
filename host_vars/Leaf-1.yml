@@ -11,7 +11,7 @@ interfaces:
     type: "routed"
   - interface: lo0
     ipv4: "10.0.0.1"
-    ipv4_mask: 31
+    ipv4_mask: 32
     description: "Management IP"
     type: "loopback"
 

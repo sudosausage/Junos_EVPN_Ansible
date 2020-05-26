@@ -1,0 +1,16 @@
+---
+- name: Create Output DIR
+  file:
+    path: "./config_files/interfaces_rendered_config"
+    state: directory
+   run_once: true
+
+- name: Templating VXLAN Config
+  template:
+    src: interfaces.j2
+    dest: "./config_files/interfaces_rendered_config/{{ inventory_hostname }}.conf"
+
+#- name: Pushing VXLAN Config
+#  juniper_junos_config:
+#    provider: "{{ junos_provider }}"
+#    src: "./config_files/interfaces_rendered_config/{{ inventory_hostname }}.conf"

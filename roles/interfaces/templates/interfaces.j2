@@ -1,0 +1,15 @@
+{% set device = hostvars[inventory_hostname] %}
+#jinja2: lstrip_blocks: “True”
+
+interfaces {
+{% for interface in device.interfaces %}
+    {{ interface.interface }} {
+        description {{ interface.description }};
+        unit 0 {
+            family inet {
+                address {{ interface.ipv4}}/{{ interface.ipv4_mask}};
+            }
+        }
+    }
+    {% endfor %}
+}
