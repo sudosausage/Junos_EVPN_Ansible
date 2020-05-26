@@ -29,8 +29,7 @@ protocols {
                 peer-as {{ bgp.remote_asn }};
             }
         }
-{%   endif   %}
-{%   if bgp.group is defined and 'Overlay' in bgp.group   %}
+{%   elif bgp.group is defined and 'Overlay' in bgp.group   %}
         group Overlay_EBGP {
             type external;
             multihop {
