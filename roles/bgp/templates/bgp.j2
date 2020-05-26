@@ -3,15 +3,15 @@
 
 routing-options {
     router-id 10.0.1.1;
-    autonomous-system 65001;
+    autonomous-system {{ device.asn }};
     forwarding-table {
         export LB;
         ecmp-fast-reroute;
     }
 }
-{% for bgp in device.bgp_neighbor %}
 protocols {
     bgp {
+{% for bgp in device.bgp_neighbor %}
 {%   if bgp.group is defined and 'Underlay' in bgp.group   %}
         group Underlay_eBGP {
             type external;
@@ -28,8 +28,8 @@ protocols {
             neighbor {{ bgp.remote_address }} {
                 peer-as {{ bgp.remote_asn }};
             }
-        }
 {%   endif   %}
+        }
 {%   if bgp.group is defined and 'Overlay' in bgp.group   %}
         group Overlay_EBGP {
             type external;
@@ -48,9 +48,9 @@ protocols {
             multipath multiple-as;
             neighbor {{ bgp.remote_address }} {
                 peer-as {{ bgp.remote_asn }};
-{%   endif   %}
             }
+{%   endif   %}
+{% endfor %}
         }
     }
 }
-{% endfor %}
