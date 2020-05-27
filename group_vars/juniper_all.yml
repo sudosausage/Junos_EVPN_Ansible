@@ -4,12 +4,12 @@ ansible_password: "test"
 ansible_network_os: "junos"
 
 #Firewall Policy VARs
-ssh:
+juniper_all_ssh:
   - 10.255.255.0/24
   - 10.255.254.0/24
-snmp:
+juniper_all_snmp:
   - 10.255.255.0/24
   - 10.255.254.0/24
-internal:
+juniper_all_internal:
   - 10.255.255.0/24
   - 10.255.254.0/24
