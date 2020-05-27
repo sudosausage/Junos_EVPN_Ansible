@@ -54,14 +54,30 @@ interfaces {
 
 {% if device.role is defined and 'Leaf' in device.role %}
 {%   for vxlan in device.vxlan   %}
-    irb {
-        description "{{ vxlan.irb_description }}";
-        unit {{ vxlan.irb }} {
+    lo0 {
+        description "{{ vxlan.loopback_description }}";
+        unit {{ vxlan.loopback_id }} {
             family inet {
-                address {{ vxlan.ipv4_gw }}/{{ vxlan.ipv4_mask }};
+                address {{ device.router_id }}/32;
+            }
+        }
+    }
+    irb {
+        description {{ vxlan.irb_description }};
+        unit 0 {
+            family inet {
+                address {{ vxlan.irb_gw }}/{{ vxlan.irb_mask }};
             }
         }
     }
 {%   endfor   %}
 {% endif %}
+}
+routing-instances {
+{% for vxlan in device.vxlan %}
+    {{ vxlan.vrf }} {
+        instance-type virtual_router;
+        interface irb.{{ vxlan.irb_id }};
+        interface lo0.{{ vxlan.loopback_id }};
+    }
 }
