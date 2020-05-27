@@ -1,5 +1,4 @@
 {% set device = hostvars[inventory_hostname] %}
-{% set group_all = groupvars[juniper_all] %}
 
 policy-options {
     prefix-list inet:bgp-prefix {
@@ -21,17 +20,17 @@ policy-options {
         apply-path "routing-instances <*> protocols bgp group <*> neighbor <*>";
     }
     prefix-list inet:snmp-prefix {
-{% for snmp in group_all.snmp %}
+{% for snmp in juniper_all.snmp %}
         {{ snmp }};
 {% endfor %}
     }
     prefix-list inet:ssh-prefix {
-{% for ssh in group_all.ssh %}
+{% for ssh in juniper_all.ssh %}
         {{ ssh }};
 {% endfor %}
     }
     prefix-list inet:internal-prefix {
-{% for internal in group_all.internal %}
+{% for internal in juniper_all.internal %}
         {{ internal }};
 {% endfor %}
     }
