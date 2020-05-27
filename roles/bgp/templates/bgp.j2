@@ -16,7 +16,6 @@ protocols {
         group Underlay_eBGP {
             type external;
             mtu-discovery;
-            local-address {{ bgp.local_address }};
             export bgp-underlay-out;
             local-as {{ device.asn }};
             bfd-liveness-detection {
@@ -27,6 +26,8 @@ protocols {
             multipath multiple-as;
             neighbor {{ bgp.remote_address }} {
                 peer-as {{ bgp.remote_asn }};
+                description {{ bgp.description }}
+                local-address {{ bgp.local_address }};
             }
         }
 {%   elif bgp.group is defined and 'Overlay' in bgp.group   %}

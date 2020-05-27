@@ -2,3 +2,14 @@
 ansible_user: "carneyd"
 ansible_password: "test"
 ansible_network_os: "junos"
+
+#Firewall Policy VARs
+ssh:
+  - 10.255.255.0/24
+  - 10.255.254.0/24
+snmp:
+  - 10.255.255.0/24
+  - 10.255.254.0/24
+internal:
+  - 10.255.255.0/24
+  - 10.255.254.0/24

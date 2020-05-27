@@ -1,0 +1,7 @@
+---
+- name: Templating Structure with Ansible Roles.
+  hosts: juniper_leafs
+  connection: local
+  gather_facts: no
+  roles:
+    - base_conf

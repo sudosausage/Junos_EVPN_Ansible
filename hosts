@@ -1,2 +1,8 @@
+[juniper_all]
+juniper_leafs
+
+[juniper_spines]
+Spine_1
+
 [juniper_leafs]
-Leaf-1 
+Leaf-1

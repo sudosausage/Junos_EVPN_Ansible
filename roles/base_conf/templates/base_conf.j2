@@ -1,0 +1,167 @@
+{% set device = hostvars[inventory_hostname] %}
+{% set group_all = groupvars[juniper_all] %}
+
+policy-options {
+    prefix-list inet:bgp-prefix {
+        apply-path "protocols bgp group <*> neighbor <*>";
+    }
+    prefix-list inet:radius-servers {
+        apply-path "system radius-server <*>";
+    }
+    prefix-list inet:tacacs-servers {
+        apply-path "system tacplus-server <*>";
+    }
+    prefix-list inet:ntp-server {
+        apply-path "system ntp server <*>";
+    }
+    prefix-list inet:dns-servers {
+        apply-path "system name-server <*>";
+    }
+    prefix-list RI:bgp-prefix {
+        apply-path "routing-instances <*> protocols bgp group <*> neighbor <*>";
+    }
+    prefix-list inet:snmp-prefix {
+{% for snmp in group_all.snmp %}
+        {{ snmp }};
+{% endfor %}
+    }
+    prefix-list inet:ssh-prefix {
+{% for ssh in group_all.ssh %}
+        {{ ssh }};
+{% endfor %}
+    }
+    prefix-list inet:internal-prefix {
+{% for internal in group_all.internal %}
+        {{ internal }};
+{% endfor %}
+    }
+}
+firewall {
+    family inet {
+        filter protect-RE-private {
+            term first-frag {
+                from {
+                    first-fragment;
+                }
+                then {
+                    discard;
+                }
+            }
+            term next-frag {
+                from {
+                    is-fragment;
+                }
+                then {
+                    discard;
+                }
+            }
+            term ssh-in {
+                from {
+                    source-prefix-list {
+                        inet:ssh-prefix;
+                    }
+                    protocol tcp;
+                    port ssh;
+                }
+                then accept;
+            }
+            term snmp-limit {
+                from {
+                    source-prefix-list {
+                        inet:snmp-prefix;
+                    }
+                    protocol udp;
+                    port snmp;
+                }
+                then accept;
+            }
+            term bgp-in {
+                from {
+                    source-prefix-list {
+                        inet:bgp-prefix;
+                    }
+                    protocol tcp;
+                    port bgp;
+                }
+                then accept;
+            }
+            term traceroute-in {
+                from {
+                    source-prefix-list {
+                        inet:internal-prefix;
+                    }
+                    protocol udp;
+                    destination-port 33434-33523;
+                }
+                then {
+                    policer 10m-policer;
+                    accept;
+                }
+            }
+            term bfd-in {
+                from {
+                    source-prefix-list {
+                        inet:bgp-prefix;
+                    }
+                    protocol udp;
+                    destination-port 3784;
+                }
+                then accept;
+            }
+            term icmp-limit {
+                from {
+                    source-prefix-list {
+                        inet:internal-prefix;
+                    }
+                    protocol icmp;
+                }
+                then {
+                    policer 10m-policer;
+                    accept;
+                }
+            }
+            term ntp-in {
+                from {
+                    source-prefix-list {
+                        inet:ntp-server;
+                    }
+                    protocol udp;
+                    port ntp;
+                }
+                then accept;
+            }
+            term tacacs-reply {
+                from {
+                    source-prefix-list {
+                        inet:tacacs-servers;
+                    }
+                    protocol tcp;
+                    source-port 49;
+                }
+                then accept;
+            }
+            term dns-reply {
+                from {
+                    source-prefix-list {
+                        inet:dns-servers;
+                    }
+                    protocol udp;
+                    source-port domain;
+                }
+                then accept;
+            }
+            term discard-last {
+                then {
+                    discard;
+                }
+            }
+        }
+    }
+    policer 10m-policer {
+        if-exceeding {
+            bandwidth-limit 10m;
+            burst-size-limit 256k;
+        }
+        then discard;
+    }
+}
