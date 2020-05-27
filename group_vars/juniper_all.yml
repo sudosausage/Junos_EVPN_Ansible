@@ -1,4 +1,4 @@
 ---
 ansible_user: "carneyd"
-ansible_password: "Night$hade900"
+ansible_password: "test"
 ansible_network_os: "junos"
