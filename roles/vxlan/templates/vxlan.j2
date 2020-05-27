@@ -42,7 +42,7 @@ vlans {
     {{ vxlan.vlan_name }} {
         description "{{ vxlan.vlan_description }}";
         vlan-id {{ vxlan.vlan_id }};
-        l3-interface {{ vxlan.irb }};
+        l3-interface irb.{{ vxlan.irb_id }};
         vxlan {
             vni {{ vxlan.vni }};
             ingress-node-replication;
