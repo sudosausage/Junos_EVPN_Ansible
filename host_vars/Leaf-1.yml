@@ -45,8 +45,8 @@ vxlan:
     vlan_description: "VXLAN Test VLAN"
     irb_id: 10
     irb_description: "VXLAN Test VLAN"
-    ipv4_gw: "10.10.10.1"
-    ipv4_mask: 24
+    irb_gw: "10.10.10.1"
+    irb_mask: 24
     loopback_id: 1
     loopback_description: "Cust-A VRF Loopback"
     intf:
