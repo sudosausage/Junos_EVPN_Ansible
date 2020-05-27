@@ -20,18 +20,18 @@ policy-options {
         apply-path "routing-instances <*> protocols bgp group <*> neighbor <*>";
     }
     prefix-list inet:snmp-prefix {
-{% for snmp in juniper_all.snmp %}
-        {{ snmp }};
+{% for snm in snmp %}
+        {{ snm }};
 {% endfor %}
     }
     prefix-list inet:ssh-prefix {
-{% for ssh in juniper_all.ssh %}
-        {{ ssh }};
+{% for ss in ssh %}
+        {{ ss }};
 {% endfor %}
     }
     prefix-list inet:internal-prefix {
-{% for internal in juniper_all.internal %}
-        {{ internal }};
+{% for interna in internal %}
+        {{ interna }};
 {% endfor %}
     }
 }
