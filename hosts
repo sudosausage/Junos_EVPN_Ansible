@@ -1,4 +1,4 @@
-[juniper_all]
+[juniper_all:children]
 juniper_leafs
 
 [juniper_spines]
