@@ -1,35 +1,67 @@
 {% set device = hostvars[inventory_hostname] %}
-#jinja2: lstrip_blocks: “True”
 
-{% for vni, vxlan in device.vxlan.items() %}
 policy-options {
-    policy-statement LEAF-IN {
-        term import_vni{{ vxlan.vni }} {
-            from community {{ vxlan.community_name }};
+{% for vxlan in device.vxlan %}
+    policy-statement vni-import {
+        term {{ vxlan.community }} {
+            from community {{ vxlan.community }};
             then accept;
         }
-        insert import_vni9228 before default
+{% endfor %}
+        then reject;
    }
-   community {{ vxlan.community_name }} members target:1:{{ vxlan.vni }};
+{% for vxlan in device.vxlan %}
+   community {{ vxlan.community }} members target:1:{{ vxlan.vni }};
+{% endfor %}
 }
 protocols {
    evpn {
-       vni-options {
+       vni-routing-options {
+{% for vxlan in device.vxlan %}
            vni {{ vxlan.vni }} {
                vrf-target export target:1:{{ vxlan.vni }};
            }
+{% endfor %}
       }
-      extended-vni-list {{ vxlan.vni }}
+{% for vxlan in device.vxlan %}
+      extended-vni-list {{ vxlan.vni }};
+{% endfor %}
+      encapsulation vxlan;
+      multicast-mode ingress-replication;
+      default-gateway do-not-advertise;
    }
 }
+switch-options {
+    vtep-source-interface lo0.0;
+    route-distinguisher {{ device.router_id }}:1;
+    vrf-import vni-import;
+    vrf-target target:9999:9999;
+}
 vlans {
+{% for vxlan in device.vxlan %}
     {{ vxlan.vlan_name }} {
         description "{{ vxlan.vlan_description }}";
         vlan-id {{ vxlan.vlan_id }};
+        l3-interface {{ vxlan.irb }};
         vxlan {
             vni {{ vxlan.vni }};
             ingress-node-replication;
         }
     }
-}
 {% endfor %}
+}
+interfaces {
+
+{% if device.role is defined and 'Leaf' in device.role %}
+{%   for vxlan in device.vxlan   %}
+    irb {
+        description "{{ vxlan.irb_description }}";
+        unit {{ vxlan.irb }} {
+            family inet {
+                address {{ vxlan.ipv4_gw }}/{{ vxlan.ipv4_mask }};
+            }
+        }
+    }
+{%   endfor   %}
+{% endif %}
+}

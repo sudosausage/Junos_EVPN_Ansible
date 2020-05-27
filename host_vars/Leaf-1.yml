@@ -35,26 +35,18 @@ bgp_neighbor:
     bfd: "true"
 
 #VXLAN Section
-vxlan_role: "Leaf"
-transport: "evpn"
-vni:
-  1001:
-    vnid: "1001"
-    rd: "2012:1001"
+vxlan:
+  - vni: "1010"
+    rd: "1:1010"
+    community: "com1010"
     vrf: "Cust-A"
-    vlan: 10
+    vlan_id: 10
+    vlan_name: "BD1010"
+    vlan_description: "VXLAN Test VLAN"
+    irb_id: 10
+    irb_description: "VXLAN Test VLAN"
     ipv4_gw: "10.10.10.1"
     ipv4_mask: 24
-    agw_mac: "0200.0000.1001"
     intf:
-      ethernet1/10:
+      xe-0/0/0:
         type: "access"
-      ethernet:1/11:
-        type: "trunk"
-
-l3_vni:
-  3001:
-    vnid: "3001"
-    vlan: 3001
-    vrf: "Cust-A"
-    rd: "2012:3001"
