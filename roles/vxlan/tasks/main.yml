@@ -7,7 +7,7 @@
 
 - name: Templating VXLAN Config
   template:
-    src: interfaces.j2
+    src: vxlan.j2
     dest: "./config_files/vxlan_rendered_config/{{ inventory_hostname }}.conf"
 
 #- name: Pushing VXLAN Config
