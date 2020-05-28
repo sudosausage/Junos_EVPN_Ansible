@@ -1,8 +1,8 @@
 ---
 - name: Templating Structure with Ansible Roles.
   hosts: juniper_leafs
-  connection: local
   gather_facts: no
+  connection: local
   roles:
     - Juniper.junos
     - bgp
