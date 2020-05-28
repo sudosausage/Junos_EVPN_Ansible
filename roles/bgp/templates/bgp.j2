@@ -1,6 +1,4 @@
 {% set device = hostvars[inventory_hostname] %}
-#jinja2: lstrip_blocks: “True”
-
 routing-options {
     router-id 10.0.1.1;
     autonomous-system {{ device.asn }};
