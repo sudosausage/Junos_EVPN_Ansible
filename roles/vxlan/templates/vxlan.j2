@@ -1,5 +1,4 @@
 {% set device = hostvars[inventory_hostname] %}
-
 policy-options {
 {% for vxlan in device.vxlan %}
     policy-statement vni-import {
