@@ -28,7 +28,6 @@ bgp_underlay:
     bfd: "true"
 bgp_overlay:
   - remote_address: "10.255.254.0"
-    local_address: "10.255.254.10"
     remote_asn: "64512"
     description: "eBGP_Underlay to Spine-1"
     bfd: "true"
