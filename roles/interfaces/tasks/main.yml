@@ -11,5 +11,5 @@
     dest: "./config_files/interfaces_rendered_config/{{ inventory_hostname }}.conf"
 
 - name: Pushing Interface Config
-  juniper_junos_config:
+  junos_config:
     src: "./config_files/interfaces_rendered_config/{{ inventory_hostname }}.conf"
