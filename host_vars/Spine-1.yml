@@ -5,7 +5,7 @@ role: "Spine"
 #Interface Section
 interfaces:
   - interface: xe-0/0/0
-    ipv4: "10.0.0.0"
+    ipv4: "10.0.0.1"
     ipv4_mask: 31
     description: "Link to Spine-1"
     type: "routed"
@@ -17,37 +17,19 @@ interfaces:
 
 #BGP Sections
 asn: 64512
-router_id: 10.255.254.10
+router_id: 10.255.254.0
 bgp_networks:
   - "100.127.10.1/32"
-bgp_underlay:
+bgp_neighbor:
   - remote_address: "10.0.0.1"
     local_address: "10.0.0.0"
     remote_asn: "64520"
-    description: "eBGP_Underlay to Spine-1"
+    description: '"eBGP_Underlay to Leaf-1"'
+    group: "Underlay"
     bfd: "true"
-bgp_overlay:
-  - remote_address: "10.255.254.10"
-    local_address: "10.255.254.0"
+  - remote_address: "10.255.254.0"
+    local_address: "10.255.254.10"
     remote_asn: "64520"
-    description: "eBGP_Underlay to Spine-1"
+    description: '"eBGP_Underlay to Leaf-1"'
+    group: "Overlay"
     bfd: "true"
-
-#VXLAN Section
-vxlan:
-  - vni: "1010"
-    rd: "1:1010"
-    community: "com1010"
-    vrf: "Cust-A"
-    vlan_id: 10
-    vlan_name: "BD1010"
-    vlan_description: "VXLAN Test VLAN"
-    irb_id: 10
-    irb_description: "VXLAN Test VLAN"
-    irb_gw: "10.10.10.1"
-    irb_mask: 24
-    loopback_id: 1
-    loopback_description: "Cust-A VRF Loopback"
-    intf:
-      xe-0/0/0:
-        type: "access"
