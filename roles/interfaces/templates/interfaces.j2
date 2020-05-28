@@ -2,8 +2,8 @@
 interfaces {
 {% for interface in device.interfaces %}
     {{ interface.interface }} {
-        description {{ interface.description }};
         unit 0 {
+            description "{{ vxlan.loopback_description }}";
             family inet {
                 address {{ interface.ipv4}}/{{ interface.ipv4_mask}};
             }

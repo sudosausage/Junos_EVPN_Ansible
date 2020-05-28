@@ -53,17 +53,17 @@ interfaces {
 {% if device.role is defined and 'Leaf' in device.role %}
 {%   for vxlan in device.vxlan   %}
     lo0 {
-        description "{{ vxlan.loopback_description }}";
         unit {{ vxlan.loopback_id }} {
+            description "{{ vxlan.loopback_description }}";
             family inet {
                 address {{ device.router_id }}/32;
             }
         }
     }
     irb {
-        description "{{ vxlan.irb_description }}";
         unit {{ vxlan.irb_id }} {
             family inet {
+                description "{{ vxlan.loopback_description }}";
                 address {{ vxlan.irb_gw }}/{{ vxlan.irb_mask }};
             }
         }
