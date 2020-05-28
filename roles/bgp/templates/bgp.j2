@@ -9,8 +9,7 @@ routing-options {
 }
 protocols {
     bgp {
-{% for bgp in device.bgp_neighbor %}
-{%   if bgp.group is defined and 'Underlay' in bgp.group   %}
+{% if device.bgp_neighbor.group is defined and 'Underlay' in device.bgp_neighbor.group %}
         group Underlay_eBGP {
             type external;
             mtu-discovery;
@@ -22,13 +21,15 @@ protocols {
                 session-mode automatic;
             }
             multipath multiple-as;
+{%   for bgp in device.bgp_neighbor   %}
             neighbor {{ bgp.remote_address }} {
                 peer-as {{ bgp.remote_asn }};
                 description {{ bgp.description }}
                 local-address {{ bgp.local_address }};
             }
+{%   endfor   %}
         }
-{%   elif bgp.group is defined and 'Overlay' in bgp.group   %}
+{% elif device.bgp_neighbor.group is defined and 'Overlay' in device.bgp_neighbor.group %}
         group Overlay_eBGP {
             type external;
             multihop {
@@ -44,11 +45,14 @@ protocols {
                 session-mode automatic;
             }
             multipath multiple-as;
+{%   for bgp in device.bgp_neighbor   %}
             neighbor {{ bgp.remote_address }} {
                 peer-as {{ bgp.remote_asn }};
+                description {{ bgp.description }}
+                local-address {{ bgp.local_address }};
             }
-{%   endif   %}
-{% endfor %}
+{%   endfor   %}
+{% endif %}
         }
     }
 }
