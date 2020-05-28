@@ -12,8 +12,18 @@ interfaces:
   - interface: lo0
     ipv4: "10.255.254.10"
     ipv4_mask: 32
-    description: "Management IP"
+    description: "Router ID"
     type: "loopback"
+  - interface: em0
+    ipv4: "10.255.255.10"
+    ipv4_mask: 24
+    description: "Management IP"
+    type: "em"
+  - interface: em1
+    ipv4: "169.254.0.2"
+    ipv4_mask: 24
+    description: "Link to vPFE"
+    type: "em"
 
 #BGP Sections
 asn: 64520
