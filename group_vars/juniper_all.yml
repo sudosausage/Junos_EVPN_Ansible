@@ -1,7 +1,8 @@
 ---
-ansible_user: "carneyd"
-ansible_password: "test"
-ansible_network_os: "junos"
+credentials:
+  ansible_user: "ansible"
+  ansible_password: "ansible"
+  ansible_network_os: "junos"
 
 #Firewall Policy VARs
 juniper_all_ssh:
