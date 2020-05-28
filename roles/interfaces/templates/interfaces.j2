@@ -1,5 +1,5 @@
 {% set device = hostvars[inventory_hostname] %}
-interfaces {
+replace: interfaces {
 {% for interface in device.interfaces %}
     {{ interface.interface }} {
         unit 0 {
