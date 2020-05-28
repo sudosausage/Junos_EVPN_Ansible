@@ -10,6 +10,6 @@
     src: bgp.j2
     dest: "./config_files/bgp_rendered_config/{{ inventory_hostname }}.conf"
 
-#- name: Pushing BGP Config
-#  junos_config:
-#    src: "./config_files/bgp_rendered_config/{{ inventory_hostname }}.conf"
+- name: Pushing BGP Config
+  junos_config:
+    src: "./config_files/bgp_rendered_config/{{ inventory_hostname }}.conf"
