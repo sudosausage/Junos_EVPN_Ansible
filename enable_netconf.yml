@@ -1,13 +1,13 @@
 ---
  - name: Get Facts
    hosts: juniper_leafs
-   connection: network_cli
-   provider: "{{ credentials }}"
+   connection: local
    gather_facts: no
 
    tasks:
     - name: Enable Netconf
       junos_netconf:
+        provider: "{{ credentials }}"
         config_mode: "private"
         netconf_port: 830
         state: present
