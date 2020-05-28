@@ -18,7 +18,7 @@ protocols {
        vni-options {
 {% for vxlan in device.vxlan %}
            vni {{ vxlan.vni }} {
-               vrf-target export target:1:{{ vxlan.vni }};
+               vrf-target target:1:{{ vxlan.vni }};
            }
 {% endfor %}
       }
