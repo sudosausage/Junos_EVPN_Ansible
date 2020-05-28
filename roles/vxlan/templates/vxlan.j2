@@ -51,7 +51,6 @@ vlans {
 {% endfor %}
 }
 interfaces {
-
 {% if device.role is defined and 'Leaf' in device.role %}
 {%   for vxlan in device.vxlan   %}
     lo0 {
