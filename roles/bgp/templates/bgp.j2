@@ -1,5 +1,5 @@
 {% set device = hostvars[inventory_hostname] %}
-routing-options {
+replace: routing-options {
     router-id {{ device.router_id }};
     autonomous-system {{ device.asn }};
     forwarding-table {
@@ -7,7 +7,7 @@ routing-options {
         ecmp-fast-reroute;
     }
 }
-protocols {
+replace: protocols {
     bgp {
         group eBGP_Underlay {
             type external;
@@ -28,7 +28,7 @@ protocols {
             }
 {% endfor %}
         }
-        group Overlay_eBGP {
+        group eBGP-Overlay {
             type external;
             multihop {
                 ttl 2;
