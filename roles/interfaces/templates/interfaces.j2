@@ -1,6 +1,4 @@
 {% set device = hostvars[inventory_hostname] %}
-#jinja2: lstrip_blocks: “True”
-
 interfaces {
 {% for interface in device.interfaces %}
     {{ interface.interface }} {
