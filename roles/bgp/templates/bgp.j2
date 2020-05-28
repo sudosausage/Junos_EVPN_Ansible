@@ -1,6 +1,6 @@
 {% set device = hostvars[inventory_hostname] %}
 routing-options {
-    router-id 10.0.1.1;
+    router-id {{ device.router_id }};
     autonomous-system {{ device.asn }};
     forwarding-table {
         export LB;
