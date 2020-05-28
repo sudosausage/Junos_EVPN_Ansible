@@ -1,5 +1,5 @@
 ---
-credentials:
+juniper_all_credentials:
   ansible_user: "ansible"
   ansible_password: "Ansible1!"
   ansible_network_os: "junos"
