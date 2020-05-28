@@ -10,6 +10,6 @@
     src: vxlan.j2
     dest: "./config_files/vxlan_rendered_config/{{ inventory_hostname }}.conf"
 
-- name: Pushing VXLAN Config
-  junos_config:
-    src: "./config_files/vxlan_rendered_config/{{ inventory_hostname }}.conf"
+#- name: Pushing VXLAN Config
+#  junos_config:
+#    src: "./config_files/vxlan_rendered_config/{{ inventory_hostname }}.conf"
