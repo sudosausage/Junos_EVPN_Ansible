@@ -13,3 +13,4 @@
 - name: Pushing Interface Config
   junos_config:
     src: "./config_files/interfaces_rendered_config/{{ inventory_hostname }}.conf"
+    replace: yes
