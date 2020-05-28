@@ -33,7 +33,8 @@ protocols {
             multihop {
                 ttl 2;
             }
-            local-address {{ bgp.local_address }};
+            local-as {{ device.asn }};
+            local-address {{ device.router_id }};
             family evpn {
                 signaling;
             }
@@ -47,7 +48,6 @@ protocols {
             neighbor {{ bgp.remote_address }} {
                 peer-as {{ bgp.remote_asn }};
                 description {{ bgp.description }}
-                local-address {{ bgp.local_address }};
             }
 {% endfor %}
         }
