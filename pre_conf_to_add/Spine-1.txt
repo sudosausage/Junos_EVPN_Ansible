@@ -1,0 +1,9 @@
+set system host-name Spine-1
+set interfaces em0 unit 0 family inet address 10.255.255.1/24
+set interfaces em1 unit 0 family inet address 169.254.0.2/24
+set system login user ansible uid 2001
+set system login user ansible class super-user
+set system login user ansible authentication encrypted-password "$6$xaTB.pS5$5zx4hutlBDOlwZSxxJ3/JWRJy/86skuBcz3wJJeiBsBg1eq6FBWjO1EQdaR4nJUkft7tznDEfp2ASG/GwIAy2/"
+set system root-authentication encrypted-password "$6$bK9myMt5$dqk39wRl9RD2L39pZaoKNtgqwtnhAnC6zdXGLrBmALyCkaEd4SjdXLp6rliBOIBzkHQ.O7UbxncFcudeFYOph/"
+set system root-authentication encrypted-password "$6$jYvCIS97$AdJplJ5.3GEXZqutISVO40Sl3Pqj30n7MTh0pc1FqzzLyPsi0xAoxiHRhXFbZsUIAMUz9kyHsKMjBrKJt7WDC."
+set system services ssh protocol-version v2
