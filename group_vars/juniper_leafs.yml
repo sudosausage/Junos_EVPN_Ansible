@@ -1,6 +1,5 @@
 ---
 
-juniper_leafs_credentials:
-  ansible_user: "ansible"
-  ansible_password: "Ansible1!"
-  ansible_network_os: "junos"
+ansible_user: "ansible"
+ansible_password: "Ansible1!"
+ansible_network_os: "junos"
