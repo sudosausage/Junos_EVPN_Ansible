@@ -1,7 +1,7 @@
 ---
 credentials:
   ansible_user: "ansible"
-  ansible_password: "ansible"
+  ansible_password: "Ansible1!"
   ansible_network_os: "junos"
 
 #Firewall Policy VARs
