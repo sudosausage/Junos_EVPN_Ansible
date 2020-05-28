@@ -13,4 +13,4 @@
 
     - name: Print Diff
       debug:
-        var: response.diff_lines
+        var: response
