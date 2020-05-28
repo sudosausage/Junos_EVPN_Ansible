@@ -5,7 +5,7 @@
     state: directory
   run_once: true
 
-- name: Templating VXLAN Config
+- name: Templating Interface Config
   template:
     src: interfaces.j2
     dest: "./config_files/interfaces_rendered_config/{{ inventory_hostname }}.conf"
