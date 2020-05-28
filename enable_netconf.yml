@@ -2,6 +2,7 @@
  - name: Get Facts
    hosts: juniper_leafs
    connection: network_cli
+   provider: "{{ credentials }}"
    gather_facts: no
 
    tasks:
