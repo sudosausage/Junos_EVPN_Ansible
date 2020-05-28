@@ -61,7 +61,7 @@ interfaces {
         }
     }
     irb {
-        description {{ vxlan.irb_description }};
+        description "{{ vxlan.irb_description }}";
         unit 0 {
             family inet {
                 address {{ vxlan.irb_gw }}/{{ vxlan.irb_mask }};
