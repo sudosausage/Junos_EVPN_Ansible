@@ -1,30 +1,31 @@
 {% set device = hostvars[inventory_hostname] %}
+{% if device.role is defined and 'Leaf' in device.role %}
 policy-options {
-{% for vxlan in device.vxlan %}
+{%   for vxlan in device.vxlan   %}
     policy-statement vni-import {
         term {{ vxlan.community }} {
             from community {{ vxlan.community }};
             then accept;
         }
-{% endfor %}
+{%   endfor   %}
         then reject;
    }
-{% for vxlan in device.vxlan %}
+{%   for vxlan in device.vxlan   %}
    community {{ vxlan.community }} members target:1:{{ vxlan.vni }};
-{% endfor %}
+{%   endfor   %}
 }
 protocols {
    evpn {
        vni-options {
-{% for vxlan in device.vxlan %}
+{%   for vxlan in device.vxlan   %}
            vni {{ vxlan.vni }} {
                vrf-target target:1:{{ vxlan.vni }};
            }
-{% endfor %}
+{%   endfor   %}
       }
-{% for vxlan in device.vxlan %}
+{%   for vxlan in device.vxlan   %}
       extended-vni-list {{ vxlan.vni }};
-{% endfor %}
+{%   endfor   %}
       encapsulation vxlan;
       multicast-mode ingress-replication;
       default-gateway do-not-advertise;
@@ -37,7 +38,7 @@ switch-options {
     vrf-target target:9999:9999;
 }
 vlans {
-{% for vxlan in device.vxlan %}
+{%   for vxlan in device.vxlan   %}
     {{ vxlan.vlan_name }} {
         description "{{ vxlan.vlan_description }}";
         vlan-id {{ vxlan.vlan_id }};
@@ -47,10 +48,9 @@ vlans {
             ingress-node-replication;
         }
     }
-{% endfor %}
+{%   endfor   %}
 }
 interfaces {
-{% if device.role is defined and 'Leaf' in device.role %}
 {%   for vxlan in device.vxlan   %}
     lo0 {
         unit {{ vxlan.loopback_id }} {
@@ -69,14 +69,14 @@ interfaces {
         }
     }
 {%   endfor   %}
-{% endif %}
 }
 routing-instances {
-{% for vxlan in device.vxlan %}
+{%   for vxlan in device.vxlan   %}
     {{ vxlan.vrf }} {
         instance-type virtual-router;
         interface irb.{{ vxlan.irb_id }};
         interface lo0.{{ vxlan.loopback_id }};
     }
-{%  endfor %}
+{%   endfor   %}
 }
+{% endif %}
