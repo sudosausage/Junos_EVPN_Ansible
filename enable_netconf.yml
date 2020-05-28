@@ -7,7 +7,6 @@
    tasks:
     - name: Enable Netconf
       junos_netconf:
-        provider: "{{ juniper_leafs_credentials }}"
         config_mode: "private"
         netconf_port: 830
         state: present
