@@ -6,4 +6,4 @@ juniper_spines
 Spine-1 ansible_host=10.255.255.1
 
 [juniper_leafs]
-Leaf-1 ansible_host=10.255.255.12
+Leaf-1 ansible_host=10.255.255.10
