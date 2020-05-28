@@ -20,17 +20,18 @@ asn: 64520
 router_id: 10.255.254.10
 bgp_networks:
   - "100.127.10.1/32"
-bgp_neighbor:
+bgp_underlay:
   - remote_address: "10.0.0.0"
     local_address: "10.0.0.1"
     remote_asn: "64512"
-    description: '"eBGP_Underlay to Spine-1"'
+    description: "eBGP_Underlay to Spine-1"
     group: "Underlay"
     bfd: "true"
+bgp_overlay:
   - remote_address: "10.255.254.0"
     local_address: "10.255.254.10"
     remote_asn: "64512"
-    description: '"eBGP_Underlay to Spine-1"'
+    description: "eBGP_Underlay to Spine-1"
     group: "Overlay"
     bfd: "true"
 
