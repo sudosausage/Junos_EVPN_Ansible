@@ -47,7 +47,7 @@ protocols {
 {% for bgp in device.bgp_overlay %}
             neighbor {{ bgp.remote_address }} {
                 peer-as {{ bgp.remote_asn }};
-                description {{ bgp.description }}
+                description "{{ bgp.description }}"
             }
 {% endfor %}
         }
