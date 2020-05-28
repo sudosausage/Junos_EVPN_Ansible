@@ -15,7 +15,7 @@ interfaces:
     description: "Router ID"
     type: "loopback"
   - interface: em0
-    ipv4: "10.255.255.10"
+    ipv4: "10.255.255.12"
     ipv4_mask: 24
     description: "Management IP"
     type: "em"
