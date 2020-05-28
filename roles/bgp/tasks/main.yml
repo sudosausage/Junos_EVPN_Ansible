@@ -13,3 +13,4 @@
 - name: Pushing BGP Config
   junos_config:
     src: "./config_files/bgp_rendered_config/{{ inventory_hostname }}.conf"
+    update: replace
