@@ -3,4 +3,5 @@
   hosts: juniper_leafs
   gather_facts: no
   roles:
+    - Juniper.junos
     - interfaces
