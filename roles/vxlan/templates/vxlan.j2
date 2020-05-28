@@ -75,7 +75,7 @@ interfaces {
 routing-instances {
 {% for vxlan in device.vxlan %}
     {{ vxlan.vrf }} {
-        instance-type virtual_router;
+        instance-type virtual-router;
         interface irb.{{ vxlan.irb_id }};
         interface lo0.{{ vxlan.loopback_id }};
     }
