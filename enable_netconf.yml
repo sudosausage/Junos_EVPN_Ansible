@@ -1,6 +1,6 @@
 ---
  - name: Get Facts
-   hosts: juniper_leafs
+   hosts: juniper_all
    connection: network_cli
    gather_facts: no
 
