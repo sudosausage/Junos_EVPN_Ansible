@@ -5,5 +5,5 @@
     dest: "./config_files/bgp_rendered_config/{{ inventory_hostname }}.conf"
 
 - name: Pushing BGP Config
-  juniper_junos_config:
+  junos_config:
     src: "./config_files/bgp_rendered_config/{{ inventory_hostname }}.conf"
