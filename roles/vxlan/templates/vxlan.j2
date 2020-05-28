@@ -15,7 +15,7 @@ policy-options {
 }
 protocols {
    evpn {
-       vni-routing-options {
+       vni-options {
 {% for vxlan in device.vxlan %}
            vni {{ vxlan.vni }} {
                vrf-target export target:1:{{ vxlan.vni }};
