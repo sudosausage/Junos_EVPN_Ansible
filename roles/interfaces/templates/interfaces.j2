@@ -66,3 +66,42 @@ routing-instances {
 {%   endfor   %}
 {% endif %}
 }
+{% if device.role is defined and 'Leaf' in device.role %}
+policy-options {
+{%   for vxlan in device.vxlan   %}
+    policy-statement vni-import {
+        term {{ vxlan.community }} {
+            from community {{ vxlan.community }};
+            then accept;
+        }
+{%   endfor   %}
+        then reject;
+   }
+{%   for vxlan in device.vxlan   %}
+   community {{ vxlan.community }} members target:1:{{ vxlan.vni }};
+{%   endfor   %}
+}
+protocols {
+   evpn {
+       vni-options {
+{%   for vxlan in device.vxlan   %}
+           vni {{ vxlan.vni }} {
+               vrf-target target:1:{{ vxlan.vni }};
+           }
+{%   endfor   %}
+      }
+{%   for vxlan in device.vxlan   %}
+      extended-vni-list {{ vxlan.vni }};
+{%   endfor   %}
+      encapsulation vxlan;
+      multicast-mode ingress-replication;
+      default-gateway do-not-advertise;
+   }
+}
+switch-options {
+    vtep-source-interface lo0.0;
+    route-distinguisher {{ device.router_id }}:1;
+    vrf-import vni-import;
+    vrf-target target:9999:9999;
+}
+{% endif %}
