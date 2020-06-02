@@ -32,6 +32,7 @@ replace: interfaces {
 {%     for vlan in interface.vlan     %}
                     members {{ vlan }}
 {%     endfor     %}
+                }
             }
         }
     }
@@ -61,7 +62,6 @@ routing-instances {
 {%     for interface in vrf.interfaces     %}
         interface {{ interface }};
 {%     endfor     %}
-        }
     }
 {%   endfor   %}
 {% endif %}
