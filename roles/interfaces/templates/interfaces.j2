@@ -27,7 +27,7 @@ replace: interfaces {
         description "{{ interface.description }}";
         unit 0 {
             family ethernet-switching {
-                interface-mode  {{ interface.mode }};
+                interface-mode {{ interface.mode }};
                 vlan {
 {%     for vlan in interface.vlan     %}
                     members {{ vlan }}
