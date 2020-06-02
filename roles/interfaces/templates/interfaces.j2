@@ -39,8 +39,8 @@ replace: interfaces {
 {%   endfor   %}
 {% endif %}
 }
-vlans {
 {% if device.role is defined and 'Leaf' in device.role %}
+vlans {
 {%   for vxlan in device.vxlan   %}
     {{ vxlan.vlan_name }} {
         description "{{ vxlan.vlan_description }}";
