@@ -52,8 +52,8 @@ vlans {
         }
     }
 {%   endfor   %}
-{% endif %}
 }
+{% endif %}
 {% if device.role is defined and 'Leaf' in device.role %}
 {%   for vrf in device.routing_instances   %}
 routing-instances {
@@ -64,8 +64,8 @@ routing-instances {
 {%     endfor     %}
     }
 {%   endfor   %}
-{% endif %}
 }
+{% endif %}
 {% if device.role is defined and 'Leaf' in device.role %}
 policy-options {
 {%   for vxlan in device.vxlan   %}
