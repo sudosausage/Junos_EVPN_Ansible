@@ -42,9 +42,9 @@ l3_interfaces:
     type: "irb"
 
 l2_interfaces:
-  - interface: xe-0/0/0
+  - interface: xe-0/0/9
     vlan:
-      - 10
+      - "BD1010"
     description: "Link to Spine-1"
     mode: "access"
 
