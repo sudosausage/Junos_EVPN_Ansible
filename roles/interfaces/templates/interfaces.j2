@@ -21,20 +21,22 @@ replace: interfaces {
     }
 {%   endif   %}
 {% endfor %}
-{% for interface in device.l2_interfaces %}
+{% if device.l2_interfaces is defined %}
+{%   for interface in device.l2_interfaces   %}
     {{ interface.interface }} {
         description "{{ interface.description }}";
         unit 0 {
             family ethernet-switching {
                 interface-mode  {{ interface.mode }};
                 vlan {
-{%   for vlan in interface.vlan_name   %}
+{%     for vlan in interface.vlan     %}
                     members {{ vlan }}
-{%   endfor   %}
+{%     endfor     %}
             }
         }
     }
-{% endfor %}
+{%   endfor   %}
+{% endif %}
 }
 vlans {
 {% if device.role is defined and 'Leaf' in device.role %}
