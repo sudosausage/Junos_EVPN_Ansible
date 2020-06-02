@@ -1,0 +1,9 @@
+---
+- name: Templating Structure with Ansible Roles.
+  hosts: juniper_all
+  connection: local
+  gather_facts: no
+  roles:
+    - interfaces
+    - bgp
+    - base_conf
