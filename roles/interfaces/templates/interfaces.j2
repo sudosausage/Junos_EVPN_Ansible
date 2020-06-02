@@ -59,7 +59,7 @@ routing-instances {
     {{ vrf.name }} {
         instance-type {{ vrf.instance_type }};
 {%     for interface in vrf.interfaces     %}
-        interface {{ interace }};
+        interface {{ interface }};
 {%     endfor     %}
         }
     }
