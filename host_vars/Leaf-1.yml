@@ -36,7 +36,7 @@ l3_interfaces:
     type: "em"
   - interface: irb
     unit: 10
-    ipv4: "169.254.0.2"
+    ipv4: "10.1.1.1"
     ipv4_mask: 24
     description: "Link to vPFE"
     type: "irb"
