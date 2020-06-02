@@ -1,13 +1,66 @@
 {% set device = hostvars[inventory_hostname] %}
 replace: interfaces {
-{% for interface in device.interfaces %}
+{% for interface in device.l3_interfaces %}
+{%   if interface.type is defined and "irb" in interface.type   %}
     {{ interface.interface }} {
-        unit 0 {
+        unit {{ interface.unit }} {
             description "{{ interface.description }}";
             family inet {
                 address {{ interface.ipv4}}/{{ interface.ipv4_mask}};
             }
         }
     }
+{%   else   %}
+    {{ interface.interface }} {
+        unit {{ interface.unit }} {
+            description "{{ interface.description }}";
+            family inet {
+                address {{ interface.ipv4}}/{{ interface.ipv4_mask}};
+            }
+        }
+    }
+{%   endif   %}
 {% endfor %}
+{% for interface in device.l2_interfaces %}
+    {{ interface.interface }} {
+        description "{{ interface.description }}";
+        unit 0 {
+            family ethernet-switching {
+                interface-mode  {{ interface.mode }};
+                vlan {
+{%   for vlan in interface.vlan_name   %}
+                    members {{ vlan }}
+{%   endfor   %}
+            }
+        }
+    }
+{% endfor %}
+}
+vlans {
+{% if device.role is defined and 'Leaf' in device.role %}
+{%   for vxlan in device.vxlan   %}
+    {{ vxlan.vlan_name }} {
+        description "{{ vxlan.vlan_description }}";
+        vlan-id {{ vxlan.vlan_id }};
+        l3-interface irb.{{ vxlan.vlan_id }};
+        vxlan {
+            vni {{ vxlan.vni }};
+            ingress-node-replication;
+        }
+    }
+{%   endfor   %}
+{% endif %}
+}
+{% if device.role is defined and 'Leaf' in device.role %}
+{%   for vrf in device.routing_instances   %}
+routing-instances {
+    {{ vrf.name }} {
+        instance-type {{ vrf.instance_type }};
+{%     for interface in vrf.interfaces     %}
+        interface {{ interace }};
+{%     endfor     %}
+        }
+    }
+{%   endfor   %}
+{% endif %}
 }

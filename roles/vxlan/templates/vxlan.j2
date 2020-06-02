@@ -37,46 +37,4 @@ switch-options {
     vrf-import vni-import;
     vrf-target target:9999:9999;
 }
-vlans {
-{%   for vxlan in device.vxlan   %}
-    {{ vxlan.vlan_name }} {
-        description "{{ vxlan.vlan_description }}";
-        vlan-id {{ vxlan.vlan_id }};
-        l3-interface irb.{{ vxlan.irb_id }};
-        vxlan {
-            vni {{ vxlan.vni }};
-            ingress-node-replication;
-        }
-    }
-{%   endfor   %}
-}
-interfaces {
-{%   for vxlan in device.vxlan   %}
-    lo0 {
-        unit {{ vxlan.loopback_id }} {
-            description "{{ vxlan.loopback_description }}";
-            family inet {
-                address {{ device.router_id }}/32;
-            }
-        }
-    }
-    irb {
-        unit {{ vxlan.irb_id }} {
-            family inet {
-                description "{{ vxlan.loopback_description }}";
-                address {{ vxlan.irb_gw }}/{{ vxlan.irb_mask }};
-            }
-        }
-    }
-{%   endfor   %}
-}
-routing-instances {
-{%   for vxlan in device.vxlan   %}
-    {{ vxlan.vrf }} {
-        instance-type virtual-router;
-        interface irb.{{ vxlan.irb_id }};
-        interface lo0.{{ vxlan.loopback_id }};
-    }
-{%   endfor   %}
-}
 {% endif %}

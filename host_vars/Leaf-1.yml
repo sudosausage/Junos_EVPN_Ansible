@@ -3,27 +3,57 @@ name: "Leaf-1"
 role: "Leaf"
 
 #Interface Section
-interfaces:
+l3_interfaces:
   - interface: xe-0/0/0
+    unit: 0
     ipv4: "10.0.0.1"
     ipv4_mask: 31
     description: "Link to Spine-1"
     type: "routed"
   - interface: lo0
+    unit: 0
     ipv4: "10.255.254.10"
     ipv4_mask: 32
     description: "Router ID"
     type: "loopback"
+  - interface: lo0
+    unit: 1
+    ipv4: "10.255.254.10"
+    ipv4_mask: 32
+    description: "Cust-A RI Loopback"
+    routing_instance: "Cust-A"
   - interface: em0
+    unit: 0
     ipv4: "10.255.255.12"
     ipv4_mask: 24
     description: "Management IP"
     type: "em"
   - interface: em1
+    unit: 0
     ipv4: "169.254.0.2"
     ipv4_mask: 24
     description: "Link to vPFE"
     type: "em"
+  - interface: irb
+    unit: 10
+    ipv4: "169.254.0.2"
+    ipv4_mask: 24
+    description: "Link to vPFE"
+    type: "irb"
+
+l2_interfaces:
+  - interface: xe-0/0/0
+    vlan:
+      - 10
+    description: "Link to Spine-1"
+    mode: "access"
+
+routing_instances:
+  - name: "Cust-A"
+    instance_type: "virtual-router"
+    interfaces:
+      - "irb.10"
+      - "lo0.1"
 
 #BGP Sections
 asn: 64520
@@ -47,16 +77,6 @@ vxlan:
   - vni: "1010"
     rd: "1:1010"
     community: "com1010"
-    vrf: "Cust-A"
     vlan_id: 10
     vlan_name: "BD1010"
     vlan_description: "VXLAN Test VLAN"
-    irb_id: 10
-    irb_description: "VXLAN Test VLAN"
-    irb_gw: "10.10.10.1"
-    irb_mask: 24
-    loopback_id: 1
-    loopback_description: "Cust-A VRF Loopback"
-    intf:
-      xe-0/0/0:
-        type: "access"
