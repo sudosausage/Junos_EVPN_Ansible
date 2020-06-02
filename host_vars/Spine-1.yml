@@ -5,21 +5,25 @@ role: "Spine"
 #Interface Section
 interfaces:
   - interface: xe-0/0/0
+    unit: 0
     ipv4: "10.0.0.0"
     ipv4_mask: 31
     description: "Link to Spine-1"
     type: "routed"
   - interface: lo0
+    unit: 0
     ipv4: "10.255.254.0"
     ipv4_mask: 32
     description: "Router ID"
     type: "loopback"
   - interface: em0
+    unit: 0
     ipv4: "10.255.255.1"
     ipv4_mask: 24
     description: "Management IP"
     type: "em"
   - interface: em1
+    unit: 0
     ipv4: "169.254.0.2"
     ipv4_mask: 24
     description: "Link to vPFE"
