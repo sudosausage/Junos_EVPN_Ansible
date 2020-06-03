@@ -6,7 +6,7 @@ replace: interfaces {
         unit {{ interface.unit }} {
             description "{{ interface.description }}";
             family inet {
-                address {{ interface.ipv4}}/{{ interface.ipv4_mask}};
+                address {{ interface.ipv4}}/{{ interface.ipv4_mask}} {
                     virtual-gateway-address {{ interface.virtual_gw }};
                 }
             }
