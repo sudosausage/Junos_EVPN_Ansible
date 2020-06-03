@@ -62,7 +62,7 @@ policy-options {
     policy-statement bgp-underlay-out {
         term loopback {
             from {
-                protocol direct;
+                protocol [ direct bgp ];
                 route-filter 10.255.254.0/24 prefix-length-range /32-/32;
             }
             then {
