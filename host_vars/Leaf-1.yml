@@ -6,7 +6,7 @@ role: "Leaf"
 l3_interfaces:
   - interface: xe-0/0/0
     unit: 0
-    ipv4: "10.0.0.1"
+    ipv4: "10.0.1.1"
     ipv4_mask: 31
     description: "Link to Spine-1"
     type: "routed"
