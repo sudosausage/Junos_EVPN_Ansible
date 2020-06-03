@@ -10,7 +10,7 @@ l3_interfaces:
     ipv4_mask: 31
     description: "Link to Leaf-1"
     type: "routed"
-  - interface: xe-0/0/0
+  - interface: xe-0/0/1
     unit: 0
     ipv4: "10.0.1.2"
     ipv4_mask: 31
