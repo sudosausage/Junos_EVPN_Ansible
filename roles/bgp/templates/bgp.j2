@@ -32,6 +32,7 @@ protocols {
             type external;
             multihop {
                 ttl 2;
+                no-nexthop-change;
             }
             local-as {{ device.asn }};
             local-address {{ device.router_id }};
