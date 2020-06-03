@@ -7,8 +7,8 @@ replace: routing-options {
         ecmp-fast-reroute;
     }
 }
-replace: protocols {
-    bgp {
+protocols {
+    replace: bgp {
         group eBGP_Underlay {
             type external;
             mtu-discovery;
