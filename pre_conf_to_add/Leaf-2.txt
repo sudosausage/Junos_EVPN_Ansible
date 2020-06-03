@@ -1,5 +1,5 @@
-set system host-name Leaf-1
-set interfaces em0 unit 0 family inet address 10.255.255.11/24
+set system host-name Leaf-2
+set interfaces em0 unit 0 family inet address 10.255.255.12/24
 set interfaces em1 unit 0 family inet address 169.254.0.2/24
 set system login user ansible uid 2001
 set system login user ansible class super-user

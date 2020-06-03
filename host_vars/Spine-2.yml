@@ -1,30 +1,30 @@
 ---
-name: "Spine-1"
+name: "Spine-2"
 role: "Spine"
 
 #Interface Section
 l3_interfaces:
   - interface: xe-0/0/0
     unit: 0
-    ipv4: "10.0.1.0"
-    ipv4_mask: 31
-    description: "Link to Leaf-1"
-    type: "routed"
-  - interface: xe-0/0/0
-    unit: 0
-    ipv4: "10.0.1.2"
+    ipv4: "10.0.2.2"
     ipv4_mask: 31
     description: "Link to Leaf-2"
     type: "routed"
+  - interface: xe-0/0/1
+    unit: 0
+    ipv4: "10.0.2.0"
+    ipv4_mask: 31
+    description: "Link to Leaf-1"
+    type: "routed"
   - interface: lo0
     unit: 0
-    ipv4: "10.255.254.1"
+    ipv4: "10.255.254.2"
     ipv4_mask: 32
     description: "Router ID"
     type: "loopback"
   - interface: em0
     unit: 0
-    ipv4: "10.255.255.1"
+    ipv4: "10.255.255.2"
     ipv4_mask: 24
     description: "Management IP"
     type: "em"
@@ -36,18 +36,18 @@ l3_interfaces:
     type: "em"
 
 #BGP Sections
-asn: 64512
-router_id: 10.255.254.1
+asn: 64513
+router_id: 10.255.254.2
 bgp_networks:
   - "100.127.10.1/32"
 bgp_underlay:
-  - remote_address: "10.0.1.1"
-    local_address: "10.0.1.0"
+  - remote_address: "10.0.2.1"
+    local_address: "10.0.2.0"
     remote_asn: "64520"
     description: "eBGP_Underlay to Leaf-1"
     bfd: "true"
-  - remote_address: "10.0.1.3"
-    local_address: "10.0.1.2"
+  - remote_address: "10.0.2.3"
+    local_address: "10.0.2.2"
     remote_asn: "64521"
     description: "eBGP_Underlay to Leaf-2"
     bfd: "true"
