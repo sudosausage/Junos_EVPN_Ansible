@@ -1,0 +1,19 @@
+{% if devce_role is defined and "Leaf" in device_role %}
+{%   for vni in leaf_vxlan_id   %}
+delete vlans BD{{ vni }}
+delete protocols evpn vni-options vni {{ vni }}
+delete protocols evpn extended-vni-list {{ vni }}
+delete policy-options policy-statement LEAF-IN term import_vni{{ vni }}
+delete policy-options community com{{ vni }}
+{%   endfor   %}
+{% endif %}
+
+{% if devce_role is defined and "Leaf" in device_role %}
+{%   for vni in spine_vxlan_id   %}
+delete vlans BD{{ vni }}
+delete protocols evpn vni-options vni {{ vni }}
+delete protocols evpn extended-vni-list {{ vni }}
+delete policy-options policy-statement SPINE-IN term import_vni{{ vni }}
+delete policy-options community com{{ vni }}
+{%   endfor   %}
+{% endif %

@@ -1,0 +1,11 @@
+---
+- name: Create Output DIR
+  file:
+    path: "./config_files/interfaces_rendered_config"
+    state: directory
+  run_once: true
+
+- name: Templating VXLAN Removal Config
+  template:
+    src: delete_vxlan.j2
+    dest: "./config_files/delete_vxlan_config/{{ inventory_hostname }}.conf"

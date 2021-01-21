@@ -1,0 +1,6 @@
+---
+- name: Templating Structure with Ansible Roles.
+  hosts: juniper_leafs:juniper_spines
+  gather_facts: no
+  roles:
+    - vxlan_remove

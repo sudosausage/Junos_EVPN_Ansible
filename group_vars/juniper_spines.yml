@@ -1,5 +1,5 @@
 ---
-device_role: "Leaf"
+device_role: "Spine"
 
 # Only place VXLANS in here that you wish to be removed from running config
 vxlan_remove:

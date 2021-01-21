@@ -96,3 +96,21 @@ vxlan:
     vlan_id: 10
     vlan_name: "BD1010"
     vlan_description: "VXLAN Test VLAN"
+  - vni: "5555"
+    rd: "1:5555"
+    community: "com5555"
+    vlan_id: 555
+    vlan_name: "EX5555"
+    vlan_description: "VXLAN Test VLAN"
+  - vni: "5556"
+    rd: "1:5556"
+    community: "com5556"
+    vlan_id: 556
+    vlan_name: "EX5556"
+    vlan_description: "VXLAN Test VLAN"
+  - vni: "5856"
+    rd: "1:5856"
+    community: "com5856"
+    vlan_id: 856
+    vlan_name: "EX5856"
+    vlan_description: "VXLAN Test VLAN"
