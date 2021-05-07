@@ -1,7 +1,7 @@
 ---
 - name: Create Output DIR
   file:
-    path: "./config_files/interfaces_rendered_config"
+    path: "./config_files/delete_vxlan_config"
     state: directory
   run_once: true
 
@@ -9,3 +9,7 @@
   template:
     src: delete_vxlan.j2
     dest: "./config_files/delete_vxlan_config/{{ inventory_hostname }}.conf"
+
+- name: Pushing VXLAN Config
+  junos_config:
+    src: "./config_files/delete_vxlan_config/{{ inventory_hostname }}.conf"
